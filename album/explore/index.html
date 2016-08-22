@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : Skeleton 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+<script src="audiojs/audio.js"></script>
+<script src="jquery.js"></script>
+<script>
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+</script>
+
+<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+
+    <script>
+      $(function() { 
+        // Setup the player to autoplay the next track
+        var a = audiojs.createAll({
+          trackEnded: function() {
+            var next = $('ol li.playing').next();
+            if (!next.length) next = $('ol li').first();
+            next.addClass('playing').siblings().removeClass('playing');
+            audio.load($('a', next).attr('data-src'));
+            audio.play();
+          }
+        });
+        
+        // Load in the first track
+        var audio = a[0];
+            first = $('ol a').attr('data-src');
+        $('ol li').first().addClass('playing');
+        audio.load(first);
+
+        // Load in a track on click
+        $('ol li').click(function(e) {
+          e.preventDefault();
+          $(this).addClass('playing').siblings().removeClass('playing');
+          audio.load($('a', this).attr('data-src'));
+          audio.play();
+        });
+        // Keyboard shortcuts
+        $(document).keydown(function(e) {
+          var unicode = e.charCode ? e.charCode : e.keyCode;
+             // right arrow
+          if (unicode == 39) {
+            var next = $('li.playing').next();
+            if (!next.length) next = $('ol li').first();
+            next.click();
+            // back arrow
+          } else if (unicode == 37) {
+            var prev = $('li.playing').prev();
+            if (!prev.length) prev = $('ol li').last();
+            prev.click();
+            // spacebar
+          } else if (unicode == 32) {
+            audio.playPause();
+          }
+        })
+      });
+    </script>
+
+</head>
+<body>
+<style>
+	  #lagu { width: 400px; margin: 40px auto; }
+	  
+      ol { padding: 0px; margin: 0px; list-style: decimal-leading-zero inside; color: #ccc; width: 460px; border-top: 1px solid #ccc; font-size: 0.9em; }
+      ol li { position: relative; margin: 0px; padding: 9px 2px 10px; border-bottom: 1px solid #ccc; cursor: pointer; }
+      ol li a { display: block; text-indent: -3.3ex; padding: 0px 0px 0px 20px; }
+      li.playing { color: #aaa; text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3); }
+      li.playing a { color: #000; }
+      li.playing:before { content: '♬'; width: 14px; height: 14px; padding: 3px; line-height: 14px; margin: 0px; position: absolute; left: -24px; top: 9px; color: #000; font-size: 13px; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2); }
+      
+      #shortcuts { position: fixed; bottom: 0px; width: 100%; color: #666; font-size: 0.9em; margin: 60px 0px 0px; padding: 20px 20px 15px; background: #f3f3f3; background: rgba(240, 240, 240, 0.7); }
+      #shortcuts div { width: 460px; margin: 0px auto; }
+      #shortcuts h1 { margin: 0px 0px 6px; }
+      #shortcuts p { margin: 0px 0px 18px; }
+      #shortcuts em { font-style: normal; background: #d3d3d3; padding: 3px 9px; position: relative; left: -3px;
+        -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); -o-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); }
+
+      @media screen and (max-device-width: 480px) {
+        #wrapper { position: relative; left: -3%; }
+        #shortcuts { display: none; }
+      }
+	  #audio {display: none}
+</style>
+<div id="page" class="container">
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#">Music!</a></h1>
+			<span>Kalian bisa "mendengarkan" lagu-lagu dari Isyana Sarasvati</span>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="/" accesskey="1" title="">Select Album</a></li>
+				<li><a href="https://www.isyanation.tk" accesskey="2" title="">Ke beranda</a></li>
+				<li class="current_page_item"><a href="/album/explore" accesskey="3" title="">Album Explore!</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="main">
+		<div id="banner"></div>
+		<div id="welcome">
+			<div class="title">
+				<h2>explore!</h2>
+				<span class="byline">Pilih lagu dibawah.</span><br/>
+			</div>
+			<div id="lagu">
+			 <audio id="audio" preload></audio>
+      <ol>
+        <li><a href="#" data-src="res/explore/1.mp3">All or Nothing</a></li>
+        <li><a href="#" data-src="res/explore/2.mp3">Keep Being You</a></li>
+        <li><a href="#" data-src="res/explore/3.mp3">Tap Tap Tap</a></li>
+        <li><a href="#" data-src="res/explore/4.mp3">Mimpi</a></li>
+        <li><a href="#" data-src="res/explore/5.mp3">The Way I Love You</a></li>
+        <li><a href="#" data-src="res/explore/6.mp3">Tetap Dalam Jiwa</a></li>
+        <li><a href="#" data-src="res/explore/7.mp3">All Over Me</a></li>
+        <li><a href="#" data-src="res/explore/8.mp3">Kau Adalah (feat. Rayi Putra)</a></li>
+        <li><a href="#" data-src="res/explore/9.mp3">Di Batas Waktu</a></li>
+        <li><a href="#" data-src="res/explore/10.mp3">Pesta</a></li>
+      </ol>
+		</div>
+		<div id="copyright">
+			<span>ISYANATION &copy; 2016.</span>
+			<span><a href="https://www.isyanation.tk/admin/nurfaqihimam">Nur Faqih Imam Networks</a> &copy; 2012-2016.</span>
+		</div>
+	</div>
+</div>
+</body>
+</html>
